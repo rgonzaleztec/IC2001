@@ -20,6 +20,11 @@ El codigo esta en un archivo en word debe compiarlo en un cpp de su projecto
 
 [Archivo zip con varios codigos de listas y apuntadores](https://app.box.com/s/g5yoa5rou888qidpkm1xvaz3lm2sk6x7)
 
+## Semana 3
+Código en VS para listas simples insercion, busqueda, impresión. En el mismo proyecto esta la inclusión e impresión de listas circulares.
+Pueden descargarlo de [aqui](/Codigo/Semana%203/listasDemo.zip)
+
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
 
