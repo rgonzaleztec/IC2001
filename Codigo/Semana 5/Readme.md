@@ -7,7 +7,7 @@ Toda la información aqui colocada es parte de las prácticas que se desarrollan
 Cuando los ítems de datos se almacenan en una colección, por ejemplo en una lista, decimos que tienen una relación lineal o secuencial. Cada ítem de datos se almacena en una posición relativa a los demás. En las listas de Python, estas posiciones relativas son los valores de los índices de los ítems individuales. Dado que estos valores de los índices están ordenados, es posible para nosotros visitarlos en secuencia. Este proceso da lugar a nuestra primera técnica de búsqueda, la búsqueda secuencial.
 
 ## Implementación en C++
-```C++
+```c++
 using namespace std;
 
 int main ()
@@ -53,7 +53,7 @@ int main ()
 ## Binaria
 La búsqueda de un elemento dentro de un array es una de las operaciones más importantes en el procesamiento de información, y permite la recuperación de datos. El caso de la Búsqueda Binaria, que es uno de las tantas búsquedas que existe, pero la más usada, está hecho para diferentes campos en el mundo laboral, como por ejemplo una secretaria podría perder tan sólo uno o dos minutos para encontrar el archivo de uno de los clientes de la compañía para la cual trabaja, esto, asumiendo que los archivos estén perfectamente ordenados y catalogados.
 
-```C++
+```c++
 using namespace std;
 
 int main ()
