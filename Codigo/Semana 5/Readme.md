@@ -61,46 +61,49 @@ La búsqueda de un elemento dentro de un array es una de las operaciones más im
 ```c++
 using namespace std;
 
-int main ()
+int main()
 {
-    int n, i, iarreglo[30], num, primero, ultimo, medio;
-    cout<<"Ingrese un arreglo ordenado: ";
-    cout<<"Cuantos elementos te gustaria ingresar?: ";
-    cin>>n;
-    
-    for (i=0; i>iarreglo[i]; 
+    int n=0, i=0, iarreglo[30], num=0, primero=0, ultimo=0, medio=0;
+    cout << "Ingrese un arreglo ordenado: " << endl;
+    cout << "Cuantos elementos te gustaria ingresar?: ";
+    cin >> n;
+
+    for (i = 0; i <= n;i++)
     {
-        cout<<"Ingrese el numero que desea buscar: ";
-        cin>>num;
+        cout << "Ingresar elementos: ";
+        cin >> num;
+        iarreglo[i] = num;
     }
-    primero=0;
-    ultimo=n-1;
-    meedio=(primero+ultimo)/2;
-    while (primero<=ultimo); 
+    primero = 0;
+    ultimo = n - 1;
+    medio = (primero + ultimo) / 2;
+    cout << "Posicion de numero a buscar: ";
+    cin >> num;
+
+    while (primero <= ultimo)
     {
-        if (A[medio]< num);
+        if (iarreglo[medio] < num)
         {
-            primero=medio+1;
-        } else if (A[medio]== num) 
+            primero = medio + 1;
+        }
+        else if (iarreglo[medio] == num)
         {
-            cout<<" Se encontro la posición ";
-            cout<<medio+1;
+            cout << " Se encontro la posicion ";
+            cout << medio + 1;
             break;
         }
         else {
             ultimo = medio - 1;
         }
-
-        medio = (primero+ultimo)/2;
+        medio = (primero + ultimo) / 2;
     }
-    if (primero>ultimo)
+    if (primero > ultimo)
     {
-        cout<<num<<" no se encontro";
+        cout << num << " no se encontro";
     }
-
+    cin >> num;
     return 0;
 }
-
 ```
 
 ## Búsqueda por interpolación
