@@ -9,39 +9,44 @@ Cuando los ítems de datos se almacenan en una colección, por ejemplo en una li
 ## Implementación en C++
 ```c++
 using namespace std;
-
-int main ()
+int main()
 {
-    int n, iarreglo[30], ibuscado;
+    int n, iarreglo[30], ibuscado=0;
     bool encontrado;
-    cout<<"Ingrese maximo 30 números para un arreglo:\n";
-    cout<<"Cuantos elementos te gustaria ingresar?: \n";
-    cin>>n;
-    
-    for (int idx=0;idx<n,idx++)
+    cout << "Ingrese maximo 30 números para un arreglo:\n";
+    cout << "Cuantos elementos te gustaria ingresar?: \n";
+    cin >> n;
+    cout << "Ingresaremos:" << n << endl;
+    int valor=0;
+
+    for (int idx = 0; idx < n; ++idx)
     {
-        cin>>iarreglo[idx];
-        cout << std::endl;
+        cin >> valor;
+        iarreglo[idx] = valor;
+        cout << iarreglo[idx] << std::endl;
+        valor = 0;
     }
-    n=0;
+    n = 0;
 
     cout << "Cual numero buscas?\n" << endl;
     cin >> ibuscado;
     encontrado = false;
-    while (n<30); 
+    while (n < 30)
     {
-        if (iarreglo[n]== ibuscado);
+        if (iarreglo[n] == ibuscado)
         {
-            n=30;
+            n = 30;
             cout << "Numero encontrado" << endl;
             encontrado = true;
         }
+        cout << n << endl;
         n++;
     }
-    if (encontrado==FALSE)
+    if (encontrado == false)
     {
         cout << "Numero No encontrado" << endl;
     }
+    cin >> ibuscado;
     return 0;
 }
 ```
