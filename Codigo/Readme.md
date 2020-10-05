@@ -24,10 +24,10 @@ El codigo esta en un archivo en word debe compiarlo en un cpp de su projecto
 Código en VS para listas simples insercion, busqueda, impresión. En el mismo proyecto esta la inclusión e impresión de listas circulares.
 Pueden descargarlo de [aqui](/Codigo/Semana%203/listasDemo.zip)
 
-## Semana 5
+## Semana 6
 Durante esta semana vamos atrabajar con estructuras dinámicas jerárquicas denominadas árboles. Estas utilizan los apuntadores y las estructuras(struct) como sus simientos para poder desarrollar sus árboles. Los algortimos que se utilizarán serán descritos y puestos en marcha en clase, pero se espera que sean repasados y trabajados fuera de clase.
 
-Ingresar al [contenido]().
+Ingresar al [contenido](https://github.com/rgonzaleztec/IC2001/blob/master/Codigo/Semana%206/Readme.md).
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
