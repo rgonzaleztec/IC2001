@@ -188,52 +188,332 @@ Los pasos para hacer el recorrido es el siguiente:
 
 
 
-## Implementación en C++
+## Implementación en C++ de varios algoritmos
 ```c++
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+#include <cstring>
 using namespace std;
-int main()
-{
-    int n, iarreglo[30], ibuscado=0;
-    bool encontrado;
-    cout << "Ingrese maximo 30 números para un arreglo:\n";
-    cout << "Cuantos elementos te gustaria ingresar?: \n";
-    cin >> n;
-    cout << "Ingresaremos:" << n << endl;
-    int valor=0;
 
-    for (int idx = 0; idx < n; ++idx)
-    {
-        cin >> valor;
-        iarreglo[idx] = valor;
-        cout << iarreglo[idx] << std::endl;
-        valor = 0;
+struct nodo{
+
+    int info;
+    struct nodo *izq,*der;
+ /*   nodo(int numero){//constructor
+    	info = numero;
+    	izq = NULL;
+    	der = NULL;
+	}*/
+}*raiz,*raiz2;
+
+struct cola{
+    struct nodo *enlace;
+    struct cola *sig;
+}*primeroCola;
+
+
+
+
+
+///insercion ordenada en arbol binario
+struct nodo* Insertar(nodo *raiz, nodo *nn){
+    if(raiz == NULL){
+        raiz = nn;
     }
-    n = 0;
-
-    cout << "Cual numero buscas?\n" << endl;
-    cin >> ibuscado;
-    encontrado = false;
-    while (n < 30)
-    {
-        if (iarreglo[n] == ibuscado)
-        {
-            n = 30;
-            cout << "Numero encontrado" << endl;
-            encontrado = true;
+    else{
+        if(nn->info < raiz->info){
+            raiz->izq = Insertar(raiz->izq,nn);
         }
-        cout << n << endl;
-        n++;
+        else{
+            raiz->der = Insertar(raiz->der,nn);
+        }
     }
-    if (encontrado == false)
-    {
-        cout << "Numero No encontrado" << endl;
+
+    return raiz;
+}
+///////////////
+void preorden(nodo *raiz)
+{
+  if (raiz == NULL)
+        return;
+
+    cout<<raiz->info<<",  ";
+    preorden(raiz->izq);
+    preorden(raiz->der);
+
+}
+//////////////
+void inorden(nodo *raiz)
+{
+  if (raiz == NULL)
+        return;
+
+    inorden(raiz->izq);
+    cout<<raiz->info<<",  "; //
+    inorden(raiz->der);
+
+}
+///////////////
+void postorden(nodo *raiz)
+{
+  if (raiz == NULL)
+        return;
+
+    postorden(raiz->izq);
+    postorden(raiz->der);
+    cout<<raiz->info<<",  "; //
+}
+
+int cont=0;
+void contar_hijos(struct nodo * raiz)
+{
+    if(raiz==NULL)
+        return ;
+
+    if(((raiz->izq!=NULL)&&(raiz->der==NULL))||((raiz->izq==NULL)&&(raiz->der!=NULL)))
+        cont++;
+
+    contar_hijos(raiz->izq);
+    contar_hijos(raiz->der);
+}
+
+////////////
+
+void imprime_hojas(struct nodo * raiz)
+{
+    if(raiz==NULL)
+        return ;
+
+    if((raiz->izq==NULL)&&(raiz->der==NULL))
+        cout<<raiz->info<<", ";
+
+    imprime_hojas(raiz->izq);
+    imprime_hojas(raiz->der);
+}
+
+bool similar=true;
+
+void similares(struct nodo *raiz1, struct nodo *raiz2)
+{
+    if((raiz1==NULL)&&(raiz2==NULL))
+        return;
+
+    if((raiz1==NULL)||(raiz2==NULL))
+        {
+            similar =false;
+            return;
+        }
+
+    similares(raiz1->izq, raiz2->izq);
+    similares(raiz1->der, raiz2->der);
+}
+//inserta al final de la cola
+void InsertarCola(struct nodo *nodoab){
+
+    struct cola *nn= new cola();
+    nn->enlace=nodoab;
+    if(primeroCola==NULL)
+        primeroCola=nn;
+    else{
+        struct cola *temp=primeroCola;
+        while(temp->sig!=NULL)
+            temp=temp->sig;
+        temp->sig=nn;
     }
-    cin >> ibuscado;
-    return 0;
+}
+///////////imprime por niveles (anchura)//////
+
+void imprimePorNiveles(){
+    if(raiz==NULL){
+        cout<<"No hay arbol";
+        return;
+    }
+    InsertarCola(raiz);
+    struct cola *temp=primeroCola;
+    while(temp!=NULL){
+        cout<<temp->enlace->info<<" ";
+        if(temp->enlace->izq!=NULL)
+            InsertarCola(temp->enlace->izq);
+        if(temp->enlace->der!=NULL)
+            InsertarCola(temp->enlace->der);
+
+        temp=temp->sig;
+    }
+
+}
+//busqueda binaria recursiva
+void bb(struct nodo *raiz, int x){
+    if(raiz==NULL)
+        return;
+    if(raiz->info==x)
+        cout<<"Si se encuentra en el arbol";
+    else if(raiz->info>x)
+        bb(raiz->izq,x);
+    else
+        bb(raiz->der,x);
+
+}
+////busqueda binaria iterativa
+void bb(int x){
+    if(raiz==NULL)
+        return;
+    struct nodo*temp=raiz;
+    while(temp!=NULL){
+        if(temp->info==x){
+          cout<<"Si se encuentra en el arbol";
+          break;
+        }
+        else if(temp->info>x)
+            temp= temp->izq;
+        else
+            temp=temp->der;
+    }
+    if(temp==NULL)
+    cout<<"\nEl numero no se encuentra en el arbol";
+
+}
+
+///////////buscar
+struct nodo* buscar(int x){
+    if(raiz==NULL)
+        return NULL;
+    struct nodo*temp=raiz;
+    while(temp!=NULL){
+        if(temp->info==x){
+          return temp;
+        }
+        else if(temp->info>x)
+            temp= temp->izq;
+        else
+            temp=temp->der;
+    }
+    return NULL;
+}
+
+//metodo de borrar auxiliar
+struct nodo * b(struct nodo *buscado){
+    //si es una hoja
+    if((buscado->izq==NULL)&&(buscado->der==NULL))
+        return NULL;
+
+    //si solo tiene un hijo
+    else if(buscado->izq==NULL)
+          return buscado->der;
+
+    else if(buscado->der==NULL)
+            return buscado->izq;
+
+    //tiene dos hijos
+    else{
+    struct nodo *temp_Der_ultimaIzq=buscado->der;
+    while(temp_Der_ultimaIzq->izq!=NULL)
+        temp_Der_ultimaIzq= temp_Der_ultimaIzq->izq;
+
+    temp_Der_ultimaIzq->izq=buscado->izq;
+    }
+    return buscado->der;
+}
+
+//metodo de borrar principal
+void borrar(int x)
+{
+    struct nodo * buscado=buscar(x);
+    if(buscado ==NULL)
+        cout<<"No se encuentra en el arbol";
+    else{//si se puede borrar
+    struct nodo *temp = raiz;
+    if(raiz==buscado)
+        raiz=b(buscado);
+    else
+    while(temp!=NULL){
+        if(temp->izq ==buscado){
+          temp->izq=b(buscado);break;}
+        else if(temp->der ==buscado){
+          temp->der=b(buscado);break;}
+
+
+        else if(temp->info>x)
+            temp= temp->izq;
+        else
+            temp=temp->der;
+    }
+    }
+
+
+}
+int profundidad (struct nodo *n)
+{
+    if (n == NULL)
+        return 0;
+    if (profundidad(n->der) > profundidad(n->izq))
+        return profundidad(n->der) + 1;
+    else
+        return profundidad(n->izq) + 1;
+}
+
+
+//////////////////////
+int main(){
+
+
+
+
+
+
+    primeroCola=NULL;
+    raiz=NULL;
+    raiz2=NULL;
+    struct nodo *nn;
+
+    srand(time(NULL));
+
+    for(int i=0; i<10;i++){
+
+        nn =new nodo();
+        nn->info=(int) rand()%100;
+        raiz =Insertar(raiz,nn);
+
+        nn =new nodo();
+        nn->info=(int) rand()%100;
+        raiz2 =Insertar(raiz2,nn);
+    }
+
+    cout <<"----------IMPRIME ENORDEN-------------\n\n";
+    inorden(raiz);
+    cout <<"\n\n----------IMPRIME preORDEN-------------\n\n";
+    preorden(raiz);
+    cout <<"\n\n----------IMPRIME POSTORDEN-------------\n\n";
+    postorden(raiz);
+
+	cout<<"\nAltura: "<<profundidad(raiz);
+
+    contar_hijos(raiz);
+    cout <<"\n\n Nodos que solo tienen un hijo:  "<<cont<<"\n\n";
+    cout <<"\nNodos hojas:  ";
+    imprime_hojas(raiz);
+
+    cout <<"\n Similares:  ";
+    similares(raiz,raiz2);
+    if(similar==true)
+        cout <<"\n SI son Similares\n\n";
+    else
+        cout <<"\n NO son Similares\n\n";
+
+    imprimePorNiveles();
+    int x;
+    cout<<"\n\n digite un numero a borrar en el arbol\n";
+    cin>>x;//bb(x);//busqueda binaria
+    borrar(x);
+    primeroCola=NULL;
+    imprimePorNiveles();
+
+
+return 0;
 }
 ```
-**Intenta hacer una versión de este algoritmo pero ordenado primero y luego haces la busqueda**
-**Toma el tiempo antes de entrar al while y despues de salir para que compares**
+**Modifique el codigo para que se ejecute en C++**
+**Ejecute las busquedas y borrados**
 
 
 
