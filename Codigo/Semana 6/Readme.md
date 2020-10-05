@@ -6,7 +6,7 @@ Toda la información aqui colocada es parte de las prácticas que se desarrollan
 ## Estructuras Jerárquocas (Árboles)
 En ciencias de la computación y en informática, un árbol es un tipo abstracto de datos (TAD) ampliamente usado que imita la estructura jerárquica de un árbol, con un valor en la raíz y subárboles con un nodo padre, representado como un conjunto de nodos enlazados.
 
-![/Codigo/Semana 6/]
+![Jerarquica vs lineal](/Codigo/Semana%206/img/arbolvslineal.png)
 
 **Componentes importantes de los árboles**
 **Nodos**:Se le llama Nodo a cada elemento que contiene un Árbol
