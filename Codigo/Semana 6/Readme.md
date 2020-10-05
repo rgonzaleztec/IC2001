@@ -10,15 +10,180 @@ En ciencias de la computación y en informática, un árbol es un tipo abstracto
 
 **Componentes importantes de los árboles**
 **Nodos**:Se le llama Nodo a cada elemento que contiene un Árbol
+
 **Nodo Raíz**:Se refiere al primer nodo de un Árbol, Solo un nodo del Árbol puede ser la Raíz
+
 **Nodo Padre**:Se utiliza este termino para llamar a todos aquellos nodos que tiene al menos un hijo
+
 **Nodo Hijo**:Los hijos son todos aquellos nodos que tiene un padre
+
 **Nodo Hermano**:Los nodos hermanos son aquellos nodos que comparte a un mismo padre en común dentro de la estructura
+
 **Nodo Hoja**:Son todos aquellos nodos que no tienen hijos, los cuales siempre se encuentran en los extremos de la estructura
+
 **Nodo Rama**:Estos son todos aquellos nodos que no son la raíz  y que ademas tiene al menos un hijo
 
+![Tipos de nodos](/Codigo/Semana%206/img/tiposdenodos.png)
 
 
+Nodos padre e hijo
+
+![Padre e hijo](/Codigo/Semana%206/img/nodospadrehijohermano.png)
+
+Los arboles a demas de los nodos tiene otras propiedades importantes que son utilizadas en diferente ámbitos los cuales son:
+__Nivel__: Nos referimos como nivel a cada generación dentro del árbol. Por ejemplo, cuando a un nodo hoja le agregamos un hijo, el nodo hoja pasa a ser un nodo rama pero a demas el árbol crece una generación por lo que el Árbol tiene un nivel mas.Cada generación tiene un número de Nivel distinto que las demas generaciones.
+
+* Un árbol vacío tiene 0 niveles
+* El nivel de la Raíz es 1
+* El nivel de cada nodo se calculado contando cuantos nodos existen sobre el, hasta llegar a la raíz + 1, y de forma inversa también se podría, contar cuantos nodos existes desde la raíz hasta el nodo buscado + 1.
+
+__Altura__: Le llamamos Altura al número máximo de niveles de un Árbol
+
+![Altura y Nivel](/Codigo/Semana%206/img/alturaniveles.png)
+
+__Peso__: Conocemos como peso a el número de nodos que tiene un Árbol. Este factor es importante por que nos da una idea del tamaño del árbol y el tamaño en memoria que nos puede ocupar en tiempo de ejecución(Complejidad Espacial en análisis de algoritmos.)
+
+![Peso](/Codigo/Semana%206/img/peso.png)
+
+
+__Orden__: El Orden de un árbol es el número máximo de hijos que puede tener un Nodo
+
+![Orden](/Codigo/Semana%206/img/orden.png)
+
+__Grado__: El grado se refiere al número mayor de hijos que tiene alguno de los nodos del Árbol y esta limitado por el Orden, ya que este indica el número máximo de hijos que puede tener un nodo
+
+![Grado](/Codigo/Semana%206/img/grado.png)
+
+## Árbol n-ario
+Los arboles n-arios son aquellos arboles donde el número máximo de hijos por nodo es de N, en la figura 7 podemos apreciar dos árboles con grado 2 y grado 3, estos dos arboles también los podemos definir como Árbol n-ario con n = 2 y n=3 respectivamente.
+
+## Árboles binarios
+Esta estructura se caracteriza por que cada nodo solo puede tener máximo 2 hijo, dicho de otra manera es un Árbol n-ario de Grado 2.
+
+![Binario](/Codigo/Semana%206/img/arbolbinario.png)
+
+__Árbol binario lleno__: Es aquel que el que todos los nodos tiene cero o 2 hijos con excepción de la Raíz.
+
+![lleno](/Codigo/Semana%206/img/arbolbinariolleno.png)
+
+__Árbol binario perfecto__: Es un Árbol lleno en donde todos las Hojas están en el mismo Nivel.
+
+![perfecto](/Codigo/Semana%206/img/arbolbinarioperfecto1.png)
+
+
+## Recorridos sobre Árboles
+Los recorridos son algoritmos que nos permiten recorrer un árbol en un orden especifico, los recorridos nos pueden ayudar encontrar un nodo en el árbol, o buscar una posición determinada para insertar o eliminar un nodo.
+
+Básicamente podemos catalogar las búsqueda en dos tipos, las búsqueda en profundidad y las búsquedas en amplitud.
+
+## Búsqueda en profundidad
+**Recorrido Pre-orden**: El recorrido inicia en la Raíz y luego se recorre en pre-orden cada unos de los sub-árboles de izquierda a derecha.
+
+Esta definición puede ser un poco compleja de entender por lo que mejor les dejo la siguiente imagen.
+
+![Preorden](/Codigo/Semana%206/img/preorden.png)
+
+### Función recursiva que recorre un árbol en preorden
+
+```c++
+    public void preorden(NodoArbol nodo)
+    {
+        if (nodo==null)
+            return;
+
+        std::cout >> "Valor de Nodo ->" >> nodo.value;
+        preorden(nodo.hijo1);
+        preorden(nodo.hijo2);
+    }
+```
+
+
+**Recorido pos-orden**: Se recorre el pos-orden cada uno de los sub-árboles y al final se recorre la raíz.
+
+Para comprender mejor esta definición observemos la siguiente imagen:
+
+![Pos-orden](/Codigo/Semana%206/img/postorden.png)
+
+### Función recursiva que recorre un árbol en Post-orden
+
+```c++
+    public void posorden(NodoArbol nodo)
+    {
+        if (nodo==null)
+            return;
+
+        posorden(nodo.hijo1);
+        posorden(nodo.hijo2);
+        std::cout >> "Valor de Nodo ->" >> nodo.value;
+       
+    }
+```
+
+**Recorrido in-orden**: Se recorre en in-orden el primer sub-árbol, luego se recorre la raíz y al final se recorre en in-orden los demas sub-árboles
+
+![En-orden](/Codigo/Semana%206/img/inorden.png)
+
+### Función recursiva que recorre un árbol en En-orden
+
+```c++
+    public void inorden(NodoArbol nodo)
+    {
+        if (nodo==null)
+            return;
+
+        inorden(nodo.hijo1);
+        std::cout >> "Valor de Nodo ->" >> nodo.value;
+        inorden(nodo.hijo2);
+        
+       
+    }
+```
+
+## Búsqueda en amplitud
+Se recorre primero la raíz, luego se recorren los demas nodos ordenados por el nivel al que pertenecen en orden de Izquierda a derecha.
+Este tipo de búsqueda se caracteriza por que la búsqueda se hace nivel por nivel y de izquierda a derecha.
+
+![En-orden](/Codigo/Semana%206/img/busquedaamplitud.png)
+
+En la imagen podemos observa que el árbol es recorrido en su totalidad pero esto no siempre es a sí, ya que el algoritmo se detiene cuando el elemento buscado es encontrado.
+
+### Función busqueda anchura
+
+```c++
+    public boolean busquedaAnchura(char c)
+    {
+        Queue<NodoArbol> colaAuxiliar = New Linkedlist<NodoArbol>();
+        colaAuxiliar.add(raiz);
+
+        while (colaAuxiliar.size() !=0)
+        {
+            NodoArbol nodo = colaAuxiliar.poll();
+            std::cout >> "Valor de Nodo ->" >> nodo.value;
+            if (nodo.value == c)
+            {
+                return true;
+            }
+            else
+            {
+                colaAuxiliar.add(nodo.hijo1);
+                colaAuxiliar.add(nodo.hijo2);
+            }
+        }
+        return false;
+        
+       
+    }
+```
+
+Si observamos el código de forma minuciosa podemos observar dos puntos muy interesantes, el primero es que esta función no es recursiva, y la segunda es que se utiliza una Cola para controlar el flujo del recorrido.
+
+Los pasos para hacer el recorrido es el siguiente:
+
+* Se agrega la Raíz a la cola de nodos por visitar
+*   Mientras que la cola no este vacía se saca el primer elemento de la cola y continuamos con el paso 3, Pero; si la cola esta vacía entonces nos vamos al paso 5.
+*   Se valida si el elemento sacado de la pila es el que estamos buscando, Si lo es, entonces hemos terminado, Si no lo es se agregan todos los hijos del nodo a la pila de nodos pendientes por procesar.
+*   Regresamos al paso 2.
+*   Terminamos sin un resultado.
 
 
 
@@ -72,324 +237,6 @@ int main()
 
 
 
-## Binaria
-La búsqueda de un elemento dentro de un array es una de las operaciones más importantes en el procesamiento de información, y permite la recuperación de datos. El caso de la Búsqueda Binaria, que es uno de las tantas búsquedas que existe, pero la más usada, está hecho para diferentes campos en el mundo laboral, como por ejemplo una secretaria podría perder tan sólo uno o dos minutos para encontrar el archivo de uno de los clientes de la compañía para la cual trabaja, esto, asumiendo que los archivos estén perfectamente ordenados y catalogados.
-
-```c++
-using namespace std;
-
-int main()
-{
-    int n=0, i=0, iarreglo[30], num=0, primero=0, ultimo=0, medio=0;
-    cout << "Ingrese un arreglo ordenado: " << endl;
-    cout << "Cuantos elementos te gustaria ingresar?: ";
-    cin >> n;
-
-    for (i = 0; i <= n;i++)
-    {
-        cout << "Ingresar elementos: ";
-        cin >> num;
-        iarreglo[i] = num;
-    }
-    primero = 0;
-    ultimo = n - 1;
-    medio = (primero + ultimo) / 2;
-    cout << "Posicion de numero a buscar: ";
-    cin >> num;
-
-    while (primero <= ultimo)
-    {
-        if (iarreglo[medio] < num)
-        {
-            primero = medio + 1;
-        }
-        else if (iarreglo[medio] == num)
-        {
-            cout << " Se encontro la posicion ";
-            cout << medio + 1;
-            break;
-        }
-        else {
-            ultimo = medio - 1;
-        }
-        medio = (primero + ultimo) / 2;
-    }
-    if (primero > ultimo)
-    {
-        cout << num << " no se encontro";
-    }
-    cin >> num;
-    return 0;
-}
-```
-
-## Búsqueda por interpolación
-La búsqueda de interpolación es un algoritmo para buscar una clave en una matriz que ha sido ordenada por valores numéricos asignados a las claves ( valores clave ). Fue descrito por primera vez por WW Peterson en 1957. La búsqueda por interpolación se asemeja al método por el cual las personas buscan un nombre en una guía telefónica (el valor clave por el cual se ordenan las entradas del libro): en cada paso, el algoritmo calcula en qué lugar del espacio de búsqueda restante el elemento buscado podría basarse en los valores de clave en los límites del espacio de búsqueda y el valor de la clave buscada, generalmente mediante una interpolación lineal . El valor de clave que se encuentra realmente en esta posición estimada se compara con el valor de clave que se busca. Si no es igual, dependiendo de la comparación, el espacio de búsqueda restante se reduce a la parte anterior o posterior a la posición estimada. Este método solo funcionará si los cálculos sobre el tamaño de las diferencias entre los valores clave son razonables.
-
-```c++
-#include <iostream>
-using namespace std;
- 
-//Print array values
-void print_ar (int ar[], int size)
-{
-  for (int i = 0; i < size; ++i)
-  {
-    cout << ar[i] << " ";
-  }
-    cout << endl;
-}
- 
-//Interpolation Search
-int interpolation_search (int ar[], int value, int size)
-{
-  int low = 0;
-  int high = size - 1;
-  int mid;
- 
-  while (ar[low] <= value && ar[high] >= value)
-  {
-    mid = low + ((value - ar[low]) * (high - low)) / (ar[high] - ar[low]);
-    if (ar[mid] < value)
-    {
-      low = mid + 1;
-    }
-    else if (ar[mid] > value)
-    {
-      low = mid - 1;
-    }
-    else
-    {
-      return mid;
-    }
-  }
- 
-  if (ar[low] == value)
-  {
-    return low;
-  }
-  else
-  {
-    return -1;
-  }
-}
- 
-//Driver Function
-int main()
-{
-  int ar [] = {1, 2, 78, 18, 16, 30, 29, 2, 0, 199};
-  int value, pos;
- 
-  cout << "Your Array : ";
-  print_ar (ar, 10);
- 
-  cout << "Enter the value to search : ";
-  cin >> value;
-  pos = interpolation_search (ar, value, 10);
-  if (pos != -1)
-  {
-    cout << "Value Found! at position : " << pos + 1 << endl;
-  }
-  else
-  {
-    cout << "Sorry, the value you searched for is not present." << endl;
-  }
- 
-  return 0;
-}
-```
-
-## Estructuras con funciones de Hash
-
-El hash es una estructura de datos importante que está diseñada para usar una función especial llamada función Hash que se usa para mapear un valor dado con una clave particular para un acceso más rápido a los elementos. La eficiencia del mapeo depende de la eficiencia de la función hash utilizada.
-
-Deje que una función hash H (x) mapee el valor x en el índice x%10 en una  arreglo4. Por ejemplo, si la lista de valores es [11,12,13,14,15], se almacenará en las posiciones {1,2,3,4,5} en la matriz o la tabla Hash, respectivamente.
-
-Para matrices y listas enlazadas, necesitamos buscar de forma lineal, lo que puede resultar costoso en la práctica. Si usamos matrices y mantenemos los datos ordenados, entonces se puede buscar un número de teléfono en tiempo _O(Logn)_ usando la búsqueda binaria, pero las operaciones de inserción y eliminación se vuelven costosas ya que tenemos que mantener el orden ordenado. 
-Con el árbol de búsqueda binario equilibrado, obtenemos tiempos de búsqueda, inserción y eliminación moderados. Se puede garantizar que todas estas operaciones se realicen en tiempo _O(Logn)_.
-
-**Función hash**: una función que convierte un número de teléfono grande dado en un pequeño valor entero práctico. El valor entero mapeado se utiliza como índice en la tabla hash. En términos simples, una función hash asigna un número grande o una cadena a un entero pequeño que se puede usar como índice en la tabla hash.
-Una buena función hash debería tener las siguientes propiedades
-* Eficientemente computable.
-* Debe distribuir uniformemente las teclas (cada posición de la mesa es igualmente probable para cada tecla)
-
-Por ejemplo, para los números de teléfono, una función hash incorrecta es tomar los primeros tres dígitos. Una mejor función es considerar los últimos tres dígitos. Tenga en cuenta que esta puede no ser la mejor función hash. Puede haber mejores formas.
-
-**Tabla hash**: una matriz que almacena punteros a registros correspondientes a un número de teléfono determinado. Una entrada en la tabla hash es NIL si ningún número de teléfono existente tiene un valor de función hash igual al índice de la entrada.
-
-**Manejo de colisiones**: dado que una función hash nos da un número pequeño para una clave grande, existe la posibilidad de que dos claves den el mismo valor. La situación en la que una clave recién insertada se asigna a una ranura ya ocupada en la tabla hash se denomina colisión y debe manejarse utilizando alguna técnica de manejo de colisiones. Las siguientes son las formas de manejar las colisiones:
-
-**Encadenamiento**: la idea es hacer que cada celda de la tabla hash apunte a una lista vinculada de registros que tengan el mismo valor de _función hash_. El encadenamiento es simple, pero requiere memoria adicional fuera de la _tabla_.
-Direccionamiento abierto: en el direccionamiento abierto, todos los elementos se almacenan en la propia _tabla hash_. Cada entrada de la tabla contiene un registro o **NIL**. Al buscar un elemento, examinamos uno por uno los espacios de la tabla hasta que se encuentra el elemento deseado o hasta que queda claro que el elemento no está en la tabla.
-
-```c++
-/*
- *C++ Program to Implement Hash Tables
- */
-#include<iostream>
-#include<cstdlib>
-#include<string>
-#include<cstdio>
-using namespace std;
-const int TABLE_SIZE = 128;
- 
-/*
- * HashEntry Class Declaration
- */
-class HashEntry
-{
-    public:
-        int key;
-        int value;
-        HashEntry(int key, int value)
-        {
-            this->key = key;
-            this->value = value;
-        }
-};
- 
-/*
- * HashMap Class Declaration
- */
-class HashMap
-{
-    private:
-        HashEntry **table;
-    public:   
-        HashMap()
-	{
-            table = new HashEntry * [TABLE_SIZE];
-            for (int i = 0; i< TABLE_SIZE; i++)
-            {
-                table[i] = NULL;
-            }
-        }
-        /*
-         * Hash Function
-         */
-        int HashFunc(int key)
-        {
-            return key % TABLE_SIZE;
-        }
-        /*
-         * Insert Element at a key
-         */
-	void Insert(int key, int value)
-	{
-            int hash = HashFunc(key);
-            while (table[hash] != NULL && table[hash]->key != key)
-            {
-                hash = HashFunc(hash + 1);
-            }
-            if (table[hash] != NULL)
-                delete table[hash];
-            table[hash] = new HashEntry(key, value);
-	}
-        /*
-         * Search Element at a key
-         */
-        int Search(int key)
-	{
-	    int  hash = HashFunc(key);
-	    while (table[hash] != NULL && table[hash]->key != key)
-	    {
-	        hash = HashFunc(hash + 1);
-	    }
-	    if (table[hash] == NULL)
-	        return -1;
-	    else
-	        return table[hash]->value;
-        }
- 
-        /*
-         * Remove Element at a key
-         */
-        void Remove(int key)
-	{
-	    int hash = HashFunc(key);
-	    while (table[hash] != NULL)
-	    {
-	        if (table[hash]->key == key)
-	            break;
-	        hash = HashFunc(hash + 1);
-	    }
-            if (table[hash] == NULL)
-	    {
-                cout<<"No Element found at key "<<key<<endl;
-                return;
-            }
-            else
-            {
-                delete table[hash];
-            }
-            cout<<"Element Deleted"<<endl;
-        }
-        ~HashMap()
-	{
-            for (int i = 0; i < TABLE_SIZE; i++)
-            {
-                if (table[i] != NULL)
-                    delete table[i];
-                delete[] table;
-            }
-        }
-};
-/*
- * Main Contains Menu
- */
-int main()
-{
-    HashMap hash;
-    int key, value;
-    int choice;
-    while (1)
-    {
-        cout<<"\n----------------------"<<endl;
-        cout<<"Operations on Hash Table"<<endl;
-        cout<<"\n----------------------"<<endl;
-        cout<<"1.Insert element into the table"<<endl;
-        cout<<"2.Search element from the key"<<endl;
-        cout<<"3.Delete element at a key"<<endl;
-        cout<<"4.Exit"<<endl;
-        cout<<"Enter your choice: ";
-        cin>>choice;
-        switch(choice)
-        {
-        case 1:
-            cout<<"Enter element to be inserted: ";
-            cin>>value;
-            cout<<"Enter key at which element to be inserted: ";
-            cin>>key;
-            hash.Insert(key, value);
-            break;
-        case 2:
-            cout<<"Enter key of the element to be searched: ";
-            cin>>key;
-            if (hash.Search(key) == -1)
-            {
-	        cout<<"No element found at key "<<key<<endl;
-	        continue;
-	    }
-	    else
-	    {
-	        cout<<"Element at key "<<key<<" : ";
-	        cout<<hash.Search(key)<<endl;
-	    }
-            break;
-        case 3:
-            cout<<"Enter key of the element to be deleted: ";
-            cin>>key;
-            hash.Remove(key);
-            break;
-        case 4:
-            exit(1);
-        default:
-           cout<<"\nEnter correct option\n";
-       }
-    }
-    return 0;
-}
-```
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
