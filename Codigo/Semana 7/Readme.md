@@ -51,47 +51,47 @@ En el gráfico que puede observar que tanto B como C tienen la misma altura (n),
 
 El siguiente árbol esta desequilibrado a la izquierda. Se requiere la fórmula para estimar la altura para este proceso.
 
-![Desequilibrado a la izquierda](/Codigo/Semana%206/img/RSD-1.gif)
+![Desequilibrado a la izquierda](/Codigo/Semana%207/img/RSD-1.gif) /Codigo/Semana%207/img/RDI-1.gif
 
 Empezamos el cálculo de las alturas para cada nodo padre, el proceso se detiene cuando se llega a los nodos hoja. Se logra determinar que el nodo raíz de todo el árbol esta desbalanciado, por lo que ahora vamos a mover Q y P, vamos a hacer una rotación simple a la derecha.
 
-![Desequilibrado a la izquierda](/Codigo/Semana%206/img/RSD-2.gif)
+![Desequilibrado a la izquierda](/Codigo/Semana%207/img/RSD-2.gif)
 
 Movemos los enlaces de Nodo (3) a Nodo (5) y de este a Nodo (4)
 
-![Desequilibrado a la izquierda](/Codigo/Semana%206/img/RSD-3.gif)
+![Desequilibrado a la izquierda](/Codigo/Semana%207/img/RSD-3.gif)
 
 Ahora Nodo (3) pasa a ser el padre de todo el árbol
 
-![Desequilibrado a la izquierda](/Codigo/Semana%206/img/RSD-4.gif)
+![Desequilibrado a la izquierda](/Codigo/Semana%207/img/RSD-4.gif)
 
 En el árbol resultante se puede ver que tanto P como Q quedan equilibrados en cuanto altura. En el caso de P porque sus dos subárboles tienen la misma altura (n), en el caso de Q, porque su subárbol izquierdo A tiene una altura (n+1) y su subárbol derecho también, ya que a P se añade la altura de cualquiera de sus subárboles.
 
-![Desequilibrado a la izquierda](/Codigo/Semana%206/img/RSD-5.gif)
+![Desequilibrado a la izquierda](/Codigo/Semana%207/img/RSD-5.gif)
 
 En el caso de que el subárbol izquierdo esté equilibrado, el procedimiento es similar, pero los FE de los nodos P y Q en el árbol resultante son diferentes.
 
 En principio, parece poco probable que nos encontremos un árbol con esta estructura, pero es posible encontrarlos cuando se borran nodos.
 
-![Desequilibrado a la izquierda](/Codigo/Semana%206/img/RSD-1b.gif)
+![Desequilibrado a la izquierda](/Codigo/Semana%207/img/RSD-1b.gif)
 
 Aplicamos el mismo algoritmo para la rotación:
 
 Paso 1
 
-![Desequilibrado a la izquierda](/Codigo/Semana%206/img/RSD-2b.gif)
+![Desequilibrado a la izquierda](/Codigo/Semana%207/img/RSD-2b.gif)
 
 Paso 2
 
-![Desequilibrado a la izquierda](/Codigo/Semana%206/img/RSD-3b.gif)
+![Desequilibrado a la izquierda](/Codigo/Semana%207/img/RSD-3b.gif)
 
 Paso 4
 
-![Desequilibrado a la izquierda](/Codigo/Semana%206/img/RSD-4b.gif)
+![Desequilibrado a la izquierda](/Codigo/Semana%207/img/RSD-4b.gif)
 
 En el árbol resultante se puede ver que tanto P como Q quedan equilibrados en cuanto altura. En el caso de P porque su subárbol izquierdo es una unidad más alto que el derecho, quedando su FE en -1. En el caso de Q, porque su subárbol derecho una altura (n+1) y su subárbol izquierdo, una altura de n.
 
-![Desequilibrado a la izquierda](/Codigo/Semana%206/img/RSD-5b.gif)
+![Desequilibrado a la izquierda](/Codigo/Semana%207/img/RSD-5b.gif)
 
 De modo que, aunque aplicamos el mismo algoritmo, ya que en ambos casos se trata de una rotación simple, deberemos tener en cuenta estos detalles a la hora de ajustar los nuevos valores de FE en nuestro programa.
 
@@ -110,25 +110,25 @@ En el gráfico que puede observar que tanto A como B tienen la misma altura (n),
 
 El siguiente es un árbol desequilibrado a la derecha
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/RSI-1.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/RSI-1.gif)
 
 Igual al anterior vamos calculando las alturas de los nodos primero. Buscamos los nodos que tengan el mayor desequilibrio, para luego buscar el hijo con el FE mayor para proceder a equilibrar.
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/RSI-2.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/RSI-2.gif)
 
 Al calcular los FE nos damos cuenta que los nodos (9) y (5) van a requerir moverse.
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/RSI-3.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/RSI-3.gif)
 
 Cambiamos los apuntadores para mantener el balance de nuestro árbol binario.
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/RSI-4.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/RSI-4.gif)
 
 El proceso sencillo parece muy sencillo y con un poco de recursión lo podemos solventar.
 
 En el árbol resultante se puede ver que tanto P como Q quedan equilibrados en cuanto altura. En el caso de P porque sus dos subárboles tienen la misma altura (n), en el caso de Q, porque su subárbol izquierdo A tiene una altura (n+1) y su subárbol derecho también, ya que a P se añade la altura de cualquiera de sus subárboles.
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/RSI-5.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/RSI-5.gif)
 
 
 ### Rotación doble a la derecha (DD)
@@ -138,7 +138,7 @@ Este es uno de los posibles árboles que pueden presentar esta estructura, pero 
 
 El modo de realizar la rotación es independiente de la estructura del árbol R, cualquiera de las tres produce resultados equivalentes. Haremos el análisis para el caso en que FE sea -1.
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/RDD-1.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/RDD-1.gif)
 
 En este caso tendremos que realizar dos rotaciones.
 
@@ -155,26 +155,26 @@ Con más detalle, procederemos del siguiente modo:
 
 Observando tenemos problemas con R y P que tienen un FE de -2. Vamos a tener que aplicar una doble rotación.
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/RDD-2.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/RDD-2.gif)
 
 Hemos movido a Nodo (7) como padre de (5) y (8). Recomodamos los enlaces de estos y volvmoes a calcular los FE de los nodos y se mantiene un -2 lo cual debemos corregir.
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/RDD-3.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/RDD-3.gif)
 
 * Pasamos el subárbol derecho del nodo R como subárbol izquierdo de P. Esto mantiene el árbol como ABB, ya que todos los valores a la derecha de R siguen estando a la izquierda de P.
 * Ahora, el nodo R pasa a tomar la posición del nodo P, es decir, hacemos que la entrada al árbol sea el nodo R, en lugar del nodo P. Como en los casos anteriores, previamente, P puede que fuese un árbol completo o un subárbol de otro nodo de menor altura.
 * El árbol P pasa a ser el subárbol derecho del nodo R.
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/RDD-4.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/RDD-4.gif)
 
 Hemos movido a Nodo (7) como padre mayor del árbol, ahora (5) y (9) son sus hijos y logramos reacomodar nuestro árbol y ya la FE esta con valores que podemos aceptar.
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/RDD-5.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/RDD-5.gif)
 
 ### Rotación doble a la izquierda (DI)
 Esta rotación se usará cuando el subárbol derecho de un nodo sea 2 unidades más alto que el izquierdo, es decir, cuando su FE sea de 2. Y además, la raíz del subárbol derecho tenga una FE de -1, es decir, que esté cargado a la izquierda. Se trata del caso simétrico del anterior.
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/RDI-1.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/RDI-1.gif)
 
 En este caso también tendremos que realizar dos rotaciones.
 
@@ -191,21 +191,21 @@ Con más detalle, procederemos del siguiente modo:
 
 Luego de calcular los FE de todo el árbol podemos notar que hay qyue trabajar en los nodos (5), (7) y (10).
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/RDI-2.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/RDI-2.gif)
 
 Una vez realizadas las reconexiones de los nodos, calculamos y nos damos cuenta que Nodo (5) y (7) aún tienen problemas.
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/RDI-3.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/RDI-3.gif)
 
 * Pasamos el subárbol izquierdo del nodo R como subárbol derecho de P. Esto mantiene el árbol como ABB, ya que todos los valores a la izquierda de R siguen estando a la derecha de P.
 * Ahora, el nodo R pasa a tomar la posición del nodo P, es decir, hacemos que la entrada al árbol sea el nodo R, en lugar del nodo P. Como en los casos anteriores, previamente, P puede que fuese un árbol completo o un subárbol de otro nodo de menor altura.
 * El árbol P pasa a ser el subárbol izquierdo del nodo R.
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/RDI-4.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/RDI-4.gif)
 
 Ahora tenemos un árbol balanceado con un FE que se puede aceptar.
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/RDI-5.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/RDI-5.gif)
 
 ## Reequilibrados en árboles AVL
 Cada vez que insertemos o eliminemos un nodo en un árbol AVL pueden suceder dos cosas: que el árbol se mantenga como AVL o que pierda esta propiedad. En el segundo caso siempre estaremos en uno de los explicados anteriormente, y recuperaremos el estado AVL aplicando la rotación adecuada.
@@ -224,7 +224,7 @@ Si no hay cambio de altura, los valores de FE del resto de los nodos hasta el ra
 
 Por ejemplo, supongamos que en siguiente árbol AVL insertamos el nodo de valor 8:
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/AVL-i1.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/AVL-i1.gif)
 
 Para empezar, cualquier nodo nuevo será un nodo hoja, de modo que su FE será siempre 0.
 
@@ -255,21 +255,21 @@ Cuando el desequilibrio se debe a la eliminación de un nodo la cosa puede ser a
 
 Supongamos el siguiente ejemplo, en el árbol AVL eliminaremos el nodo de valor 3:
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/AVL-b1.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/AVL-b1.gif)
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/AVL-b2.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/AVL-b2.gif)
 
 El valor de FE del nodo P pasa de 1 a 2, sabemos que cuando el valor de FE de un nodo es 2 siempre tenemos que aplicar una rotación a izquierdas. Para saber cual de las dos rotaciones debemos aplicar miramos el valor de FE del nodo derecho. Pero en este caso, el valor de FE de ese nodo es 0. Esto no quiere decir que no podamos aplicar ninguna de las rotaciones, por el contrario, podremos aplicar cualquiera de ellas. Aunque por economía, lo razonable es aplicar la rotación simple.
 
 Rotación Simple
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/AVL-b3.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/AVL-b3.gif)
 
 Del mismo modo, el valor de FE del nodo derecho podría haber sido 1 ó -1, en ese caso sí está determinado el tipo de rotación a realizar.
 
 El razonamiento es similar cuando se eliminan nodos y el resultado es que se obtiene un nodo con FE de -2, en este caso se realizará una rotación a derechas, y la rotación dependerá del valor de FE del nodo izquierdo al que muestra el desequilibrio. Si es 0 ó -1 haremos una rotación simple, si es 1, haremos una rotación doble.
 
-![Desequilibrado a la derecha](/Codigo/Semana%206/img/AVL-b4.gif)
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/AVL-b4.gif)
 
 Tendremos entonces una tabla más general para decidir la rotación a aplicar:
 
