@@ -876,6 +876,299 @@ int main()
 ```
 
 
+## Árboles SPLAY (Zig-Zag)
+Esta estructura garantiza que para cualquier secuencia de M operaciones en un árbol, empezando desde un árbol vacío, toma a lo más tiempo O(M log(N). A pesar que esto no garantiza que alguna operación en particular tome tiempo O(N), si asegura que no existe ninguna secuencia de operaciones que sea mala. En general, cuando una secuencia de M operaciones toma tiempo O(M f(N)), se dice que el costo amortizado en tiempo de cada operación es O(f(N)). Por lo tanto, en un splay tree los costos amortizados por operacion son de O(log(N)).
+
+La idea básica de un splay tree es que después que un nodo es accesado éste se "sube" hasta la raíz del árbol a través de rotaciones al estilo AVL. Una manera de realizar esto, que NO funciona, es realizar rotaciones simples entre el nodo accesado y su padre hasta dejar al nodo accesado como raíz del árbol. El problema que tiene este enfoque es que puede dejar otros nodos muy abajo en el árbol, y se puede probar que existe una secuencia de M operaciones que toma tiempo O(M N), por lo que esta idea no es muy buena.
+
+La estrategia de "splaying" es similar a la idea de las rotaciones simples. Si el nodo k es accesado, se realizaran rotaciones para llevarlo hasta la raíz del árbol. Sea k un nodo distinto a la raíz del árbol. Si el padre de k es la raíz del árbol, entonces se realiza una rotación simple entre estos dos nodos. En caso contrario, el nodo k posee un nodo padre p y un nodo "abuelo" a. Para realizar las rotaciones se deben considerar dos casos posibles (más los casos simétricos).
+
+El primer caso es una inserción zig-zag, en donde k es un hijo derecho y p es un hijo izquierdo (o viceversa). En este caso, se realiza una rotación doble estilo AVL (ver siguiente figura).
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/splay1.png)
+
+El otro caso es una inseción zig-zig, en donde k y p son ambos hijos izquierdo o derecho. En este caso, se realiza la transformación indicada en la figura siguiente.
+
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/splay2.png)
+
+El efecto del splaying es no sólo de mover el nodo accesado a la raíz, sino que sube todos los nodos del camino desde la raíz hasta el nodo accesado aproximadamente a la mitad de su profundidad anterior, a costa que algunos pocos nodos bajen a lo más dos niveles en el árbol.
+
+El siguiente ejemplo muestra como queda el splay tree luego de accesar al nodo d.
+
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/splay3.png)
+
+El primer paso es un zig-zag entre los nodos d, b y f.
+
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/splay4.png)
+
+El último paso es un zig-zig entre los nodos d, h y j.
+
+![Desequilibrado a la derecha](/Codigo/Semana%207/img/splay5.png)
+
+Para borrar un elemento de un splay tree se puede proceder de la siguiente forma: se realiza una búsqueda del nodo a eliminar, lo cual lo deja en la raíz del árbol. Si ésta es eliminada, se obtienen dos subárboles Sizq y Sder. Se busca el elemento mayor en Sizq, con lo cual dicho elemento pasa a ser su nueva raíz, y como era el elemento mayor Sizq ya no tiene hijo derecho, por lo que se cuelga Sder como subárbol derecho de Sizq, con lo que termina la operación de eliminación.
+
+El análisis de los splay trees es complejo, porque debe considerar la estructura cambiante del árbol en cada acceso realizado. Por otra parte, los splay trees son más fáciles de implementar que un AVL dado que no hay que verificar una condición de balance.
+
+### Implementación en C++
+
+```c++
+
+/*
+ *  C++ Program to Implement Splay Tree
+ */
+ 
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+using namespace std;
+ 
+struct splay
+{
+    int key;
+    splay* lchild;
+    splay* rchild;
+};
+ 
+class SplayTree
+{
+    public:
+        SplayTree()
+        {
+        }
+ 
+        // RR(Y rotates to the right)
+        splay* RR_Rotate(splay* k2)
+        {
+            splay* k1 = k2->lchild;
+            k2->lchild = k1->rchild;
+            k1->rchild = k2;
+            return k1;
+        }
+ 
+        // LL(Y rotates to the left)
+        splay* LL_Rotate(splay* k2)
+        {
+            splay* k1 = k2->rchild;
+            k2->rchild = k1->lchild;
+            k1->lchild = k2;
+            return k1;
+        }
+ 
+        // An implementation of top-down splay tree
+        splay* Splay(int key, splay* root)
+        {
+            if (!root)
+                return NULL;
+            splay header;
+            /* header.rchild points to L tree;
+            header.lchild points to R Tree */
+            header.lchild = header.rchild = NULL;
+            splay* LeftTreeMax = &header;
+            splay* RightTreeMin = &header;
+            while (1)
+            {
+                if (key < root->key)
+                {
+                    if (!root->lchild)
+                        break;
+                    if (key < root->lchild->key)
+                    {
+                        root = RR_Rotate(root);
+                        // only zig-zig mode need to rotate once,
+                        if (!root->lchild)
+                            break;
+                    }
+                    /* Link to R Tree */
+                    RightTreeMin->lchild = root;
+                    RightTreeMin = RightTreeMin->lchild;
+                    root = root->lchild;
+                    RightTreeMin->lchild = NULL;
+                }
+                else if (key > root->key)
+                {
+                    if (!root->rchild)
+                        break;
+                    if (key > root->rchild->key)
+                    {
+                        root = LL_Rotate(root);
+                        // only zag-zag mode need to rotate once,
+                        if (!root->rchild)
+                            break;
+                    }
+                    /* Link to L Tree */
+                    LeftTreeMax->rchild = root;
+                    LeftTreeMax = LeftTreeMax->rchild;
+                    root = root->rchild;
+                    LeftTreeMax->rchild = NULL;
+                }
+                else
+                    break;
+            }
+            /* assemble L Tree, Middle Tree and R tree */
+            LeftTreeMax->rchild = root->lchild;
+            RightTreeMin->lchild = root->rchild;
+            root->lchild = header.rchild;
+            root->rchild = header.lchild;
+            return root;
+        }
+ 
+        splay* New_Node(int key)
+        {
+            splay* p_node = new splay;
+            if (!p_node)
+            {
+                fprintf(stderr, "Out of memory!\n");
+                exit(1);
+            }
+            p_node->key = key;
+            p_node->lchild = p_node->rchild = NULL;
+            return p_node;
+        }
+ 
+        splay* Insert(int key, splay* root)
+        {
+            static splay* p_node = NULL;
+            if (!p_node)
+                p_node = New_Node(key);
+            else
+                p_node->key = key;
+            if (!root)
+            {
+                root = p_node;
+                p_node = NULL;
+                return root;
+            }
+            root = Splay(key, root);
+            /* This is BST that, all keys <= root->key is in root->lchild, all keys >
+            root->key is in root->rchild. */
+            if (key < root->key)
+            {
+                p_node->lchild = root->lchild;
+                p_node->rchild = root;
+                root->lchild = NULL;
+                root = p_node;
+            }
+            else if (key > root->key)
+            {
+                p_node->rchild = root->rchild;
+                p_node->lchild = root;
+                root->rchild = NULL;
+                root = p_node;
+            }
+            else
+                return root;
+            p_node = NULL;
+            return root;
+        }
+ 
+        splay* Delete(int key, splay* root)
+        {
+            splay* temp;
+            if (!root)
+                return NULL;
+            root = Splay(key, root);
+            if (key != root->key)
+                return root;
+            else
+            {
+                if (!root->lchild)
+                {
+                    temp = root;
+                    root = root->rchild;
+                }
+                else
+                {
+                    temp = root;
+                    /*Note: Since key == root->key,
+                    so after Splay(key, root->lchild),
+                    the tree we get will have no right child tree.*/
+                    root = Splay(key, root->lchild);
+                    root->rchild = temp->rchild;
+                }
+                free(temp);
+                return root;
+            }
+        }
+ 
+        splay* Search(int key, splay* root)
+        {
+            return Splay(key, root);
+        }
+ 
+        void InOrder(splay* root)
+        {
+            if (root)
+            {
+                InOrder(root->lchild);
+                cout<< "key: " <<root->key;
+                if(root->lchild)
+                    cout<< " | left child: "<< root->lchild->key;
+                if(root->rchild)
+                    cout << " | right child: " << root->rchild->key;
+                cout<< "\n";
+                InOrder(root->rchild);
+            }
+        }
+};
+ 
+int main()
+{
+    SplayTree st;
+    int vector[10] = {9,8,7,6,5,4,3,2,1,0};
+    splay *root;
+    root = NULL;
+    const int length = 10;
+    int i;
+    for(i = 0; i < length; i++)
+        root = st.Insert(vector[i], root);
+    cout<<"\nInOrder: \n";
+    st.InOrder(root);
+    int input, choice;
+    while(1)
+    {
+        cout<<"\nSplay Tree Operations\n";
+        cout<<"1. Insert "<<endl;
+        cout<<"2. Delete"<<endl;
+        cout<<"3. Search"<<endl;
+        cout<<"4. Exit"<<endl;
+        cout<<"Enter your choice: ";
+        cin>>choice;
+        switch(choice)
+        {
+        case 1:
+            cout<<"Enter value to be inserted: ";
+            cin>>input;
+            root = st.Insert(input, root);
+            cout<<"\nAfter Insert: "<<input<<endl;
+            st.InOrder(root);
+            break;
+        case 2:
+            cout<<"Enter value to be deleted: ";
+            cin>>input;
+            root = st.Delete(input, root);
+            cout<<"\nAfter Delete: "<<input<<endl;
+            st.InOrder(root);
+            break;
+        case 3:
+            cout<<"Enter value to be searched: ";
+            cin>>input;
+            root = st.Search(input, root);
+            cout<<"\nAfter Search "<<input<<endl;
+            st.InOrder(root);
+            break;
+ 
+        case 4:
+            exit(1);
+        default:
+            cout<<"\nInvalid type! \n";
+        }
+    }
+    cout<<"\n";
+    return 0;
+}
+```
+
+
+
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
