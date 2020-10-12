@@ -884,6 +884,7 @@ La idea básica de un splay tree es que después que un nodo es accesado éste s
 La estrategia de "splaying" es similar a la idea de las rotaciones simples. Si el nodo k es accesado, se realizaran rotaciones para llevarlo hasta la raíz del árbol. Sea k un nodo distinto a la raíz del árbol. Si el padre de k es la raíz del árbol, entonces se realiza una rotación simple entre estos dos nodos. En caso contrario, el nodo k posee un nodo padre p y un nodo "abuelo" a. Para realizar las rotaciones se deben considerar dos casos posibles (más los casos simétricos).
 
 El primer caso es una inserción zig-zag, en donde k es un hijo derecho y p es un hijo izquierdo (o viceversa). En este caso, se realiza una rotación doble estilo AVL (ver siguiente figura).
+
 ![Desequilibrado a la derecha](/Codigo/Semana%207/img/splay1.png)
 
 El otro caso es una inseción zig-zig, en donde k y p son ambos hijos izquierdo o derecho. En este caso, se realiza la transformación indicada en la figura siguiente.
