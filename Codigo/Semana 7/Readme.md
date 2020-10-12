@@ -51,7 +51,7 @@ En el gráfico que puede observar que tanto B como C tienen la misma altura (n),
 
 El siguiente árbol esta desequilibrado a la izquierda. Se requiere la fórmula para estimar la altura para este proceso.
 
-![Desequilibrado a la izquierda](/Codigo/Semana%207/img/RSD-1.gif) /Codigo/Semana%207/img/RDI-1.gif
+![Desequilibrado a la izquierda](/Codigo/Semana%207/img/RSD-1.gif)
 
 Empezamos el cálculo de las alturas para cada nodo padre, el proceso se detiene cuando se llega a los nodos hoja. Se logra determinar que el nodo raíz de todo el árbol esta desbalanciado, por lo que ahora vamos a mover Q y P, vamos a hacer una rotación simple a la derecha.
 
