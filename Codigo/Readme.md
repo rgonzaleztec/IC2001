@@ -29,6 +29,11 @@ Durante esta semana vamos atrabajar con estructuras dinámicas jerárquicas deno
 
 Ingresar al [contenido](https://github.com/rgonzaleztec/IC2001/blob/master/Codigo/Semana%206/Readme.md).
 
+## Semana 7
+Durante esta semana vamos atrabajar con estructuras dinámicas jerárquicas denominadas árboles. Puntualmente con los árboles AVL y los SPLAY.
+
+Ingresar al [contenido](https://github.com/rgonzaleztec/IC2001/blob/master/Codigo/Semana%207/Readme.md).
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
 
